@@ -1,0 +1,6 @@
+/vendor
+/bin/behat
+/bin/phpspec
+/bin/phpunit
+/.idea
+
