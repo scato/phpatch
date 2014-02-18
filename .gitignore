@@ -1,6 +1,5 @@
 /vendor
-/bin/behat
-/bin/phpspec
-/bin/phpunit
+/bin/*
+!/bin/phpatch
 /.idea
 
