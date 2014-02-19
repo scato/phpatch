@@ -11,4 +11,9 @@ class ApplicationSpec extends ObjectBehavior
     {
         $this->shouldHaveType('PHPatch\Console\Application');
     }
+
+    function it_should_have_a_check_command()
+    {
+        $this->get('check')->shouldBeAnInstanceOf('PHPatch\Console\CheckCommand');
+    }
 }

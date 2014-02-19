@@ -28,7 +28,7 @@ class FeatureContext extends BehatContext
 
     protected function createApplication()
     {
-        return new Symfony\Component\Console\Application();
+        return new \PHPatch\Console\Application();
     }
 
     /**

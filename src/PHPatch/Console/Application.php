@@ -11,5 +11,6 @@ class Application extends BaseApplication
     public function __construct()
     {
         parent::__construct('PHPatch', self::VERSION);
+        $this->add(new CheckCommand('check'));
     }
 }
