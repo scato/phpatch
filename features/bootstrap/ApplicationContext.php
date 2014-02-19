@@ -13,15 +13,6 @@ trait ApplicationContext
     private $applicationTester = null;
 
     /**
-     * @When /^I run phpspec$/
-     */
-    public function iRunPhpspec()
-    {
-        $this->applicationTester = $this->createApplicationTester();
-        $this->applicationTester->run('run --no-interaction', array('decorated' => false));
-    }
-
-    /**
      * @When /^I run "([^"]*)"$/
      */
     public function iRun($command)
@@ -37,6 +28,9 @@ trait ApplicationContext
         assertRegExp('/'.preg_quote($message, '/').'/sm', $this->applicationTester->getDisplay());
     }
 
+    /**
+     * @return \Symfony\Component\Console\Application
+     */
     abstract protected function createApplication();
 
     /**
