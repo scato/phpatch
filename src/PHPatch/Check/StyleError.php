@@ -28,7 +28,7 @@ class StyleError
 
     /**
      * @param string $filename
-     * @param integer $file
+     * @param integer $line
      * @param integer $char
      * @param string $message
      */
