@@ -15,24 +15,20 @@ class TokenIterator
 
     public function next()
     {
-        if ($this->eos()) {
+        if ($this->pos >= count($this->tokens)) {
             return null;
         }
 
         return $this->tokens[$this->pos++];
     }
 
-    public function peek()
+    public function rewind($pos)
     {
-        if ($this->eos()) {
-            return null;
-        }
-
-        return $this->tokens[$this->pos];
+        $this->pos = $pos;
     }
 
-    private function eos()
+    public function pos()
     {
-        return $this->pos >= count($this->tokens);
+        return $this->pos;
     }
 }

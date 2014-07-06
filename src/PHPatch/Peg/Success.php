@@ -15,4 +15,9 @@ class Success
     {
         return $this->value;
     }
+
+    public function concat(Success $success)
+    {
+        return new Success(array_merge($this->getValue(), $success->getValue()));
+    }
 }

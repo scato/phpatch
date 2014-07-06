@@ -18,12 +18,18 @@ class TokenIteratorSpec extends ObjectBehavior
         $this->next()->shouldReturn(array(T_ECHO, 'echo', 1));
     }
 
-    function it_can_look_ahead()
+    function it_has_a_position()
     {
-        $this->peek()->shouldReturn(array(T_OPEN_TAG, '<?php ', 1));
+        $this->pos()->shouldReturn(0);
+        $this->next();
+        $this->pos()->shouldReturn(1);
+    }
 
+    function it_can_backtrack()
+    {
         $this->next()->shouldReturn(array(T_OPEN_TAG, '<?php ', 1));
-        $this->peek()->shouldReturn(array(T_ECHO, 'echo', 1));
+        $this->rewind(0);
+        $this->next()->shouldReturn(array(T_OPEN_TAG, '<?php ', 1));
     }
 
     function it_returns_null_after_the_end()
@@ -33,8 +39,6 @@ class TokenIteratorSpec extends ObjectBehavior
         $this->next()->shouldReturn(array(T_WHITESPACE, ' ', 1));
         $this->next()->shouldReturn(array(T_CONSTANT_ENCAPSED_STRING, '"test"', 1));
         $this->next()->shouldReturn(';');
-
-        $this->peek()->shouldReturn(null);
         $this->next()->shouldReturn(null);
     }
 }
