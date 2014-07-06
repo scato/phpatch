@@ -9,7 +9,7 @@ use PHPatch\Peg\TokenIterator;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class AnySpec extends ObjectBehavior
+class ManySpec extends ObjectBehavior
 {
     function let(Parser $first)
     {
@@ -21,24 +21,11 @@ class AnySpec extends ObjectBehavior
         $this->shouldHaveType('PHPatch\Peg\Parser');
     }
 
-    function it_should_always_succeed(TokenIterator $iterator, Parser $first)
+    function it_should_fail_if_the_sub_expression_fails(TokenIterator $iterator, Parser $first)
     {
         $first->parse($iterator)->willReturn(new Failure());
 
-        $this->parse($iterator)->shouldBeLike(new Success(array()));
-    }
-
-    function it_should_match_one_token(TokenIterator $iterator, Parser $first)
-    {
-        $token = '!';
-
-        $first->parse($iterator)->will(function () use ($iterator, $first, $token) {
-            $first->parse($iterator)->willReturn(new Failure());
-
-            return new Success(array($token));
-        });
-
-        $this->parse($iterator)->shouldBeLike(new Success(array($token)));
+        $this->parse($iterator)->shouldBeLike(new Failure());
     }
 
     function it_should_match_and_concatenate_more_tokens(TokenIterator $iterator, Parser $first)

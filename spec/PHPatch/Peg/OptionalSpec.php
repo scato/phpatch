@@ -9,7 +9,7 @@ use PHPatch\Peg\TokenIterator;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class AnySpec extends ObjectBehavior
+class OptionalSpec extends ObjectBehavior
 {
     function let(Parser $first)
     {
@@ -41,7 +41,7 @@ class AnySpec extends ObjectBehavior
         $this->parse($iterator)->shouldBeLike(new Success(array($token)));
     }
 
-    function it_should_match_and_concatenate_more_tokens(TokenIterator $iterator, Parser $first)
+    function it_should_not_match_more_tokens(TokenIterator $iterator, Parser $first)
     {
         $token = '!';
 
@@ -55,22 +55,15 @@ class AnySpec extends ObjectBehavior
             return new Success(array($token));
         });
 
-        $this->parse($iterator)->shouldBeLike(new Success(array($token, $token)));
+        $this->parse($iterator)->shouldBeLike(new Success(array($token)));
     }
 
     function it_should_not_consume_more_that_it_matches(TokenIterator $iterator, Parser $first)
     {
-        $token = '!';
-
         $iterator->pos()->willReturn(0);
-        $first->parse($iterator)->will(function () use ($iterator, $first, $token) {
-            $iterator->pos()->willReturn(1);
-            $first->parse($iterator)->willReturn(new Failure());
+        $first->parse($iterator)->willReturn(new Failure());
 
-            return new Success(array($token));
-        });
-
-        $iterator->rewind(1)->shouldBeCalled();
-        $this->parse($iterator)->shouldBeLike(new Success(array($token)));
+        $iterator->rewind(0)->shouldBeCalled();
+        $this->parse($iterator)->shouldBeLike(new Success(array()));
     }
 }
