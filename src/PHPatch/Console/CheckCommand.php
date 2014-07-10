@@ -4,6 +4,7 @@ namespace PHPatch\Console;
 
 use PHPatch\Check\StyleChecker;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
@@ -11,6 +12,11 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 class CheckCommand extends Command
 {
     use ContainerAwareTrait;
+
+    protected function configure()
+    {
+        $this->addArgument('filename', InputArgument::REQUIRED);
+    }
 
     /**
      * {@inheritDoc}

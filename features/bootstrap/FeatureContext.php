@@ -24,11 +24,12 @@ class FeatureContext extends BehatContext
     use ApplicationContext;
     use WorkDirContext;
 
-    private $filePath;
-
     protected function createApplication()
     {
-        return new \PHPatch\Console\Application();
+        $parameterBag = new \Symfony\Component\DependencyInjection\ParameterBag\ParameterBag();
+        $container = new \Symfony\Component\DependencyInjection\Container($parameterBag);
+
+        return new \PHPatch\Console\Application($container);
     }
 
     /**
@@ -47,8 +48,8 @@ class FeatureContext extends BehatContext
      */
     public function iHaveAFileContaining($contents)
     {
-        $this->filePath = tempnam('.', 'phpatch');
+        $this->filename = tempnam('.', 'phpatch');
 
-        file_put_contents($this->filePath, $contents);
+        file_put_contents($this->filename, $contents);
     }
 }

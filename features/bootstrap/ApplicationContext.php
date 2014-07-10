@@ -12,6 +12,8 @@ trait ApplicationContext
      */
     private $applicationTester = null;
 
+    protected $filename;
+
     /**
      * @When /^I run "([^"]*)"$/
      */
@@ -45,7 +47,7 @@ trait ApplicationContext
 
         $this->applicationTester = new ApplicationTester($application);
 
-        return $this->applicationTester->run(array('command' => $command));
+        return $this->applicationTester->run(array('command' => $command, 'filename' => $this->filename));
     }
 }
 
