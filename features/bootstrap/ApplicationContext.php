@@ -19,7 +19,11 @@ trait ApplicationContext
      */
     public function iRun($command)
     {
-        $this->run($command);
+        $status = $this->run($command);
+
+        if ($status !== 0) {
+            throw new FailedCommandException($this->applicationTester->getDisplay());
+        }
     }
 
     /**

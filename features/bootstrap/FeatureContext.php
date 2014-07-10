@@ -52,4 +52,22 @@ class FeatureContext extends BehatContext
 
         file_put_contents($this->filename, $contents);
     }
+
+    /**
+     * @Given /^I have a file containing:$/
+     */
+    public function iHaveAFileContaining2(PyStringNode $string)
+    {
+        $this->filename = tempnam('.', 'phpatch');
+
+        file_put_contents($this->filename, $string->getRaw());
+    }
+
+    /**
+     * @Then /^My file should contain:$/
+     */
+    public function myFileShouldContain(PyStringNode $string)
+    {
+        assertSame($string->getRaw(), file_get_contents($this->filename));
+    }
 }

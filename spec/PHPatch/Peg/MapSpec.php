@@ -17,7 +17,7 @@ class MapSpec extends ObjectBehavior
             $first,
             'key' => $second,
             'value' => $third
-        ), '"{$key[0]}: {$value[0]}"');
+        ), '["{$key[0]}: {$value[0]}"]');
     }
 
     function it_is_a_parser()

@@ -29,7 +29,7 @@ class Map implements Parser
             }
         }
 
-        return new Success(array($this->evalExpr($params)));
+        return new Success($this->evalExpr($params));
     }
 
     private function evalExpr(array $params)

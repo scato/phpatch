@@ -3,6 +3,7 @@
 namespace PHPatch\Console;
 
 use PHPatch\Check\StyleChecker;
+use PHPatch\Fix\BracesFixer;
 use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -27,6 +28,7 @@ class Application extends BaseApplication
     private function setupServices(ContainerInterface $container)
     {
         $container->set('phpatch.check.style_checker', new StyleChecker());
+        $container->set('phpatch.fix.braces_fixer', new BracesFixer());
     }
 
     private function setupCommands(ContainerInterface $container)
@@ -34,5 +36,9 @@ class Application extends BaseApplication
         $check = new CheckCommand('check');
         $check->setContainer($container);
         $this->add($check);
+
+        $fixBraces = new FixBracesCommand('fix-braces');
+        $fixBraces->setContainer($container);
+        $this->add($fixBraces);
     }
 }
