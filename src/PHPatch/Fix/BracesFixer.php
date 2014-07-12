@@ -4,6 +4,8 @@ namespace PHPatch\Fix;
 
 use PHPatch\Peg\Any;
 use PHPatch\Peg\Choice;
+use PHPatch\Peg\Definition\Input;
+use PHPatch\Peg\Definition\Parser;
 use PHPatch\Peg\Literal;
 use PHPatch\Peg\Map;
 use PHPatch\Peg\Match;
@@ -17,35 +19,24 @@ class BracesFixer
 {
     private $parser;
 
-    /*
-     * head : (
-     *     T_CLASS
-     *     (
-     *         ! ( T_WHITESPACE ? “{“ )
-     *         /(.*)/
-     *     ) *
-     * )
-     * T_WHITESPACE ? “{“
-     * {
-     *     array_merge($head, [[T_WHITESPACE, “\n”], “{“])
-     * }
-     */
     public function __construct()
     {
-        $head = new Sequence(
-            new Type(T_CLASS),
-            new Any(new Sequence(
-                new NotPredicate(new Sequence(new Optional(new Type(T_WHITESPACE)), new Literal("{"))),
-                new Match('.*')
-            ))
-        );
-        $brace = new Sequence(
-            new Optional(new Type(T_WHITESPACE)),
-            new Literal("{")
-        );
-        $expr = 'array_merge($head, [[T_WHITESPACE, "\n", 1], "{"])';
+        $definition = <<<EOS
+            head : (
+                T_CLASS
+                (
+                    ! ( T_WHITESPACE ? "{" )
+                    .
+                ) *
+            )
+            T_WHITESPACE ? "{"
+            {
+                array_merge(\$head, [[T_WHITESPACE, "\\n", 1], "{"])
+            }
+EOS;
 
-        $findReplace = new Map(array('head' => $head, $brace), $expr);
+        $definitionParser = new Parser();
+        $findReplace = $definitionParser->parse(new Input($definition))->getValue();
 
         $this->parser = new Any(new Choice($findReplace, new Match('.*')));
     }
