@@ -17,7 +17,7 @@ class MapSpec extends ObjectBehavior
             $first,
             'key' => $second,
             'value' => $third
-        ), '["{$key[0]}: {$value[0]}"]');
+        ), '["{$key[0]}: {$value[0]} {$iterator->line()}"]');
     }
 
     function it_is_a_parser()
@@ -37,7 +37,8 @@ class MapSpec extends ObjectBehavior
         $first->parse($iterator)->willReturn(new Success(array('foo')));
         $second->parse($iterator)->willReturn(new Success(array('bar')));
         $third->parse($iterator)->willReturn(new Success(array('ber')));
+        $iterator->line()->willReturn(100);
 
-        $this->parse($iterator)->shouldBeLike(new Success(array('bar: ber')));
+        $this->parse($iterator)->shouldBeLike(new Success(array('bar: ber 100')));
     }
 }

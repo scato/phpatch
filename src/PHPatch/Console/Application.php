@@ -2,7 +2,7 @@
 
 namespace PHPatch\Console;
 
-use PHPatch\Check\StyleChecker;
+use PHPatch\Check\OpeningTagChecker;
 use PHPatch\Fix\BracesFixer;
 use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -27,7 +27,7 @@ class Application extends BaseApplication
 
     private function setupServices(ContainerInterface $container)
     {
-        $container->set('phpatch.check.style_checker', new StyleChecker());
+        $container->set('phpatch.check.opening_tag_checker', new OpeningTagChecker());
         $container->set('phpatch.fix.braces_fixer', new BracesFixer());
     }
 

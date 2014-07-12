@@ -2,14 +2,7 @@
 
 namespace PHPatch\Check;
 
-class StyleChecker
+interface StyleChecker
 {
-    /**
-     * @param string $filename
-     * @return StyleError[]
-     */
-    public function findErrors($filename)
-    {
-        return array();
-    }
+    public function findErrors($filename);
 }

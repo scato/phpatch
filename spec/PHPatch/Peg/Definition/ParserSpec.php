@@ -29,7 +29,7 @@ class ParserSpec extends ObjectBehavior
 
     function it_should_parse_type()
     {
-        $this->parse(new Input('T_STRING'))->shouldBeLike(new Success(new Type(T_STRING)));
+        $this->parse(new Input('T_OPEN_TAG'))->shouldBeLike(new Success(new Type(T_OPEN_TAG)));
     }
 
     function it_should_parse_literal()

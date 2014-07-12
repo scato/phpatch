@@ -29,10 +29,10 @@ class Map implements Parser
             }
         }
 
-        return new Success($this->evalExpr($params));
+        return new Success($this->evalExpr($params, $iterator));
     }
 
-    private function evalExpr(array $params)
+    private function evalExpr(array $params, TokenIterator $iterator)
     {
         $argList = array();
 
@@ -41,6 +41,9 @@ class Map implements Parser
                 $argList[] = '$' . $label;
             }
         }
+
+        $argList[] = '$iterator';
+        $params[] = $iterator;
 
         $args = implode(', ', $argList);
         $code = "return ({$this->expr});";

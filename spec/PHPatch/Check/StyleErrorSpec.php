@@ -7,14 +7,14 @@ use Prophecy\Argument;
 
 class StyleErrorSpec extends ObjectBehavior
 {
-    const FILENAME = 'test.php';
+    const MESSAGE = 'You SHOULD do this';
     const LINE = 42;
     const CHAR = 5;
-    const MESSAGE = 'You SHOULD do this';
+    const FILENAME = 'test.php';
 
     function let()
     {
-        $this->beConstructedWith(self::FILENAME, self::LINE, self::CHAR, self::MESSAGE);
+        $this->beConstructedWith(self::MESSAGE, self::LINE, self::CHAR, self::FILENAME);
     }
 
     function it_should_have_a_file_name()

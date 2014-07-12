@@ -8,8 +8,8 @@ Feature: Checking for PSR-1 compliance
     When I run "check"
     Then I should see "No errors"
 
-#  Scenario: My code has no errors
-#    Given I have a file containing "<? echo 'test'; ?>"
-#    When I run "check"
-#    Then I should see "Use ONLY <?php and <?= tags"
+  Scenario: My code has a short opening php tag
+    Given I have a file containing "<? echo 'test'; ?>"
+    When I run "check"
+    Then I should see "Use ONLY <?php and <?= tags"
 

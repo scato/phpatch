@@ -36,7 +36,7 @@ class CheckCommandSpec extends ObjectBehavior
 
     function it_should_report_failure(StyleChecker $checker, InputInterface $input, OutputInterface $output)
     {
-        $checker->findErrors('test.php')->willReturn(array(new StyleError('', 0, 0, 'You SHOULD do this')));
+        $checker->findErrors('test.php')->willReturn(array(new StyleError('You SHOULD do this', 0, 0)));
         $input->bind(Argument::type('Symfony\Component\Console\Input\InputDefinition'))->willReturn();
         $input->isInteractive()->willReturn(false);
         $input->validate()->willReturn(true);

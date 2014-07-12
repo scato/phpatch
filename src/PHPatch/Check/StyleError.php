@@ -7,7 +7,7 @@ namespace PHPatch\Check;
 class StyleError
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $filename;
 
@@ -27,17 +27,17 @@ class StyleError
     private $message;
 
     /**
-     * @param string $filename
+     * @param string $message
      * @param integer $line
      * @param integer $char
-     * @param string $message
+     * @param string|null $filename
      */
-    public function __construct($filename, $line, $char, $message)
+    public function __construct($message, $line, $char, $filename = null)
     {
-        $this->filename = $filename;
+        $this->message = $message;
         $this->line = $line;
         $this->char = $char;
-        $this->message = $message;
+        $this->filename = $filename;
     }
 
     /**
